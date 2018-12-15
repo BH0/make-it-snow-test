@@ -1,22 +1,61 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import Particles from 'react-particles-js';
 
-import styles from './styles.css'
-
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
+const MakeItSnow = (WrappedComponent) => { 
+    const particleConfig = {
+	    "particles": {
+	        "number": {
+	            "value": 260,
+	            "density": {
+	                "enable": false
+	            }
+	        },
+	        "size": {
+	            "value": 10,
+	            "random": true
+	        },
+	        "move": {
+	            "direction": "bottom",
+	            "out_mode": "out"
+	        },
+	        "line_linked": {
+	            "enable": false
+	        }
+	    },
+	    "interactivity": {
+	        "events": {
+	            "onclick": {
+	                "enable": true,
+	                "mode": "remove"
+	            }
+	        },
+	        "modes": {
+	            "remove": {
+	                "particles_nb": 10
+	            }
+	        }
+	    }
   }
+  
+  const background = { 
+        backgroundColor: "grey", 
+        opacity: 0.24
+    }
 
-  render() {
-    const {
-      text
-    } = this.props
+    const styling = { 
+        position:"absolute",
+        top: 0
+    } 
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+    return props => { 
+        return (
+            <div style={background}>  
+                <h1>HI</h1> 
+                <Particles style={styling} params={particleConfig} />                
+                <WrappedComponent style={styling} {...props} /> 
+            </div> 
+        )
+    }
 }
+
+export default MakeItSnow; 
